@@ -11,13 +11,9 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  messagesService: MessagesService;
-  constructor() {
-    this.messagesService = new MessagesService();
-  }
+  constructor(private messagesService: MessagesService) {}
   @Get()
   listMessages() {
-    console.log(this.messagesService.findAll());
     return this.messagesService.findAll();
   }
 
