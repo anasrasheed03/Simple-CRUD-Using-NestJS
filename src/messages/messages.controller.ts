@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   NotFoundException,
+  Delete,
 } from '@nestjs/common';
 import { createMessagesDto } from './dtos/create-message.dto';
 import { MessagesService } from './messages.service';
@@ -23,12 +24,17 @@ export class MessagesController {
   }
 
   @Get('/:id')
-  async getMessage(@Param('id') id: string) {
-    const message = await this.messagesService.findOne(id);
+  getMessage(@Param('id') id: string) {
+    const message = this.messagesService.findOne(id);
     if (!message) {
       throw new NotFoundException('message not found');
     }
 
     return message;
+  }
+
+  @Delete('/:id')
+  deleteMessage(@Param('id') id: string) {
+    this.messagesService.delete(id);
   }
 }

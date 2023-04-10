@@ -20,4 +20,10 @@ export class MessagesRepository {
     messages[randomIdNumber] = { id: randomIdNumber, content };
     await writeFile('messages.json', JSON.stringify(messages));
   }
+
+  async delete(id: string) {
+    const messages = JSON.parse(await readFile('messages.json', 'utf-8'));
+    delete messages[id];
+    await writeFile('messages.json', JSON.stringify(messages));
+  }
 }
